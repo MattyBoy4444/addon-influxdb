@@ -17,3 +17,17 @@ if bashio::config.false 'reporting'; then
     sed -i 's/reporting-disabled=.*/reporting-disabled=true/' /etc/influxdb/influxdb.conf
     bashio::log.info "Reporting of usage stats to InfluxData is disabled."
 fi
+
+declare certfile
+declare keyfile
+
+if bashio::config.true 'ssl'; then
+    certfile=$(bashio::config 'certfile')
+    keyfile=$(bashio::config 'keyfile')
+
+    sed -i 's/https-enabled=.*/https-enabled=true/' /etc/influxdb/influxdb.conf
+    sed -i "s#https-certificate=.*#https-certificate=\"/ssl/${certfile}\"#" \
+        /etc/influxdb/influxdb.conf
+    sed -i "s#https-private-key=.*#https-private-key=\"/ssl/${keyfile}\"#" \
+        /etc/influxdb/influxdb.conf
+fi

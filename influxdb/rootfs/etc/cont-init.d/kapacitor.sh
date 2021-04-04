@@ -9,3 +9,7 @@ secret=$(</data/secret)
 
 sed -i "s/password.*/password = \"${secret}\"/" \
     /etc/kapacitor/kapacitor.conf
+
+if bashio::config.true 'ssl'; then
+    sed -i "s/http:/https:/" /etc/kapacitor/kapacitor.conf
+fi
