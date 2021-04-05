@@ -1,4 +1,4 @@
-# Home Assistant Community Add-on: InfluxDB
+# Home Assistant MattyBoy4444 Add-on: InfluxDB
 
 InfluxDB is an open source time series database optimized for high-write-volume.
 It's useful for recording metrics, sensor data, events,
