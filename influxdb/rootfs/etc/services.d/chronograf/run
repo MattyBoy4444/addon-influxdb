@@ -20,6 +20,8 @@ secret=$(</data/secret)
 bashio::log.info "Chronograf is waiting until InfluxDB is available..."
 for i in {1800..0}; do
     if influx \
+		-ssl
+		-unsafeSsl
         -execute "SHOW DATABASES" \
         -username "chronograf" \
         -password "${secret}" \
