@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/hassio-addons/debian-base/amd64:4.1.2
+ARG BUILD_FROM=ghcr.io/hassio-addons/debian-base/amd64:4.2.0
 # hadolint ignore=DL3006
 FROM ${BUILD_FROM}
 
@@ -22,7 +22,7 @@ RUN \
     && if [ "${BUILD_ARCH}" = "aarch64" ]; then ARCH="arm64"; fi \
     && if [ "${BUILD_ARCH}" = "armv7" ]; then ARCH="armhf"; fi \
     \
-    && INFLUXDB="1.8.4" \
+    && INFLUXDB="1.8.5" \
     && curl -J -L -o /tmp/influxdb.deb \
         "https://dl.influxdata.com/influxdb/releases/influxdb_${INFLUXDB}_${ARCH}.deb" \
     \
@@ -30,7 +30,7 @@ RUN \
     && curl -J -L -o /tmp/chronograf.deb \
         "https://dl.influxdata.com/chronograf/releases/chronograf_${CHRONOGRAF}_${ARCH}.deb" \
     \
-    && KAPACITOR="1.5.7-1" \
+    && KAPACITOR="1.5.9-1" \
     && curl -J -L -o /tmp/kapacitor.deb \
         "https://dl.influxdata.com/kapacitor/releases/kapacitor_${KAPACITOR}_${ARCH}.deb" \
     \
