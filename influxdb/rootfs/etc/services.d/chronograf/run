@@ -19,14 +19,24 @@ secret=$(</data/secret)
 # Wait for InfluxDB...
 bashio::log.info "Chronograf is waiting until InfluxDB is available..."
 for i in {1800..0}; do
-    if influx \
-	-ssl \
-	-unsafeSsl \
-        -execute "SHOW DATABASES" \
-        -username "chronograf" \
-        -password "${secret}" \
-        > /dev/null 2>&1; then
-        break;
+    if bashio::config.true 'ssl'; then
+        if influx \
+	    -ssl \
+	    -unsafeSsl \
+            -execute "SHOW DATABASES" \
+            -username "chronograf" \
+            -password "${secret}" \
+            > /dev/null 2>&1; then
+            break;
+        fi
+    else
+        if influx \
+	    -execute "SHOW DATABASES" \
+            -username "chronograf" \
+            -password "${secret}" \
+            > /dev/null 2>&1; then
+            break;
+        fi
     fi
     sleep 5
 done
